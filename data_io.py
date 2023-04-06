@@ -36,7 +36,7 @@ def get_book(pg_id, path_read, level = 'counts'):
         with open(filename,'r') as f:
             x = f.readlines()
         list_tokens = [h.strip() for h in x]
-        return list_tokens
+        return list_tokens[0:512]
     
     # Join tokens here
 #     elif level == 'text':
