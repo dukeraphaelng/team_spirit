@@ -4,38 +4,43 @@ import keras
 import joblib
 import pickle
 
-path_to_encoder = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)),
-    "svm_models",
-    "sdae_encoder.h5"
-)
-
-path_to_svm = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)),
-    "svm_models",
-    "svm_model.pki"
-)
-
-path_to_scaler = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)),
-    "svm_models",
-    "min_max_scaler.pkl"
-)
-
-path_to_labeller = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)),
-    "svm_models",
-    "label_encoder.pkl"
-)
-
-path_to_vectorizer = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)),
-    "svm_models",
-    "count_vectorizer.pkl"
-)
-
 class svm_model():
-    def __init__(self):
+    def __init__(self, dataset):
+
+        if dataset == 'bert':
+            first_path = "svm_bert_models"
+        else:
+            first_path = "svm_models"
+            
+        path_to_encoder = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            first_path,
+            "sdae_encoder.h5"
+        )
+
+        path_to_svm = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+           first_path,
+            "svm_model.pki"
+        )
+
+        path_to_scaler = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            first_path,
+            "min_max_scaler.pkl"
+        )
+
+        path_to_labeller = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            first_path,
+            "label_encoder.pkl"
+        )
+
+        path_to_vectorizer = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            first_path,
+            "count_vectorizer.pkl"
+        )
         self.encoder = keras.models.load_model(path_to_encoder, compile=False)
         self.encoder.compile(loss='categorical_crossentropy', optimizer='adam')
         self.svm = joblib.load(path_to_svm)
@@ -46,6 +51,16 @@ class svm_model():
         with open(path_to_vectorizer, 'rb') as f:
             self.count_vectorizer = pickle.load(f)
 
+        params = (np.size(self.svm.coef_))
+        print(params)
+
+    def predict_name(self, x):
+        encoded_x = self.count_vectorizer.transform(x).toarray()
+        encoded_x = self.scaler.transform(encoded_x)
+        encoded_x = self.encoder.predict(encoded_x)
+        probability = self.svm.predict(encoded_x)
+        return (self.label.inverse_transform(probability))
+    
     def predict(self, x):
         encoded_x = self.count_vectorizer.transform(x).toarray()
         encoded_x = self.scaler.transform(encoded_x)
