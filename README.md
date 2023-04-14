@@ -364,15 +364,15 @@ For the SVM, a linear SVM was used with 5-fold cross validation from the Scikit-
 
 SVM: 
 
- 
 
-Table 1: Results of SVM on whole document dataset 
 
- 
 
- 
+[Table 1: Results of SVM on whole document dataset](./resources/table1.png)
 
-Table 2: Results of SVM on 2000 x 512 token dataset 
+
+[Table 2: Results of SVM on 2000 x 512 token dataset](./resources/table2.png)
+
+[Table 3: Result](./resources/res.png)
 
 We find that in Table 1, the SVM model achieves the highest weighted average f1-score of 96.4 on the whole document dataset when using only 1 denoising autoencoder, opposed to the paper we were following which used 3. 
 
