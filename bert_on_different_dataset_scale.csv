@@ -1,0 +1,4 @@
+Dataset scale, Test accuracy
+"Top 5 authors, 400 paragraphs per authors, 2000 in total",86.5%
+"Top 30 authors, 1000 paragraphs per authors, 30000 in total",86.5%
+"Top 50 authors, 900 paragraphs per authors, 45000 in total",96.6%

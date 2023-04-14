@@ -1,0 +1,5 @@
+Model pattern, Test accuracy
+Bert+default pooling,96.6
+Bert+concat pooling,95.3
+Bert+max pooling,95.9
+Bert+mean pooling,94.6
