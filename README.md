@@ -14,6 +14,11 @@ We used three datasets:
 + Used Stacked denoising autoencoders to enrich features
 + Encoded features fed into SVM classifier
 
+## SVM Data
++ Two SVM model were built using both datasets, dataset 1. was used for the sole purpose of training the SVM whilst dataset 2. was used to compare the BERT and SVM models.
++ The SVM model built on dataset 1. is written in svm_original.ipynb and the SVM model built on dataset 2. is written in svm_bert_data.ipynb.
++ The SVM model built on dataset 2. uses a GPU-accelerated SVM due to the large row size of the dataset and the RAPID cuml.svm package that implements LinearSVC was used for the SVM classifier. The installation of this depends on the architecture of the operating system and the installation guide can be found here https://docs.rapids.ai/install?_gl=1*1wfzw4y*_ga*MTUyMjg2OTQwLjE2ODEzNTg3Mzc.*_ga_RKXFW6CM42*MTY4MTM4MjU4Ni4zLjAuMTY4MTM4MjU4Ni4wLjAuMA..
+
 ## SVM Requirements
 + python==3.10.8
 + numpy==1.23.5
@@ -23,11 +28,6 @@ We used three datasets:
 + matplotlib==3.7.1
 + keras==2.12.0
 + tensorflow=2.12.0
-
-## SVM Data
-+ Two SVM model were built using both datasets, dataset 1. was used for the sole purpose of training the SVM whilst dataset 2. was used to compare the BERT and SVM models.
-+ The SVM model built on dataset 1. is written in svm_original.ipynb and the SVM model built on dataset 2. is written in svm_bert_data.ipynb.
-+ The SVM model built on dataset 2. uses a GPU-accelerated SVM due to the large row size of the dataset and the RAPID cuml.svm package that implements LinearSVC was used for the SVM classifier. The installation of this depends on the architecture of the operating system and the installation guide can be found here https://docs.rapids.ai/install?_gl=1*1wfzw4y*_ga*MTUyMjg2OTQwLjE2ODEzNTg3Mzc.*_ga_RKXFW6CM42*MTY4MTM4MjU4Ni4zLjAuMTY4MTM4MjU4Ni4wLjAuMA..
 
 ## BERT Overview
 + We use the Bert-base uncased model​
