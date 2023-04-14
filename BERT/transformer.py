@@ -28,9 +28,9 @@ import matplotlib.pyplot as plt
 # In[2]:
 
 
-train_df = pd.read_csv('svm_2000_train.csv')
-val_df = pd.read_csv('svm_2000_val.csv')
-test_df = pd.read_csv('svm_2000_test.csv')
+train_df = pd.read_csv('../svm_2000_train.csv')
+val_df = pd.read_csv('../svm_2000_val.csv')
+test_df = pd.read_csv('../svm_2000_test.csv')
 # train_df.groupby(['label']).size().plot.bar()
 #set(val_df['author'].tolist()+train_df['author'].tolist())
 
