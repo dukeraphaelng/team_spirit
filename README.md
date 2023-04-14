@@ -18,13 +18,11 @@ COMP9417 - Machine Learning & Data Mining (Group Project) & Berrijam Jam Submiss
 
 + Download the dataset at the following links: 
 
-  + 1. The top 30 authors with 50 documents each with a 60, 30, 10% split on the train, test and validation set respectively, https://unsw-my.sharepoint.com/:f:/g/personal/z5316653_ad_unsw_edu_au/Eol-3sqFPrhLsBt_ifuuF7kBv_XXpSkD8F1QB3HoI3clsA?e=J72fXn 
+  + 1. The top 30 authors with 50 documents each with a 60, 30, 10% split on the [train, test and validation set respectively](https://unsw-my.sharepoint.com/:f:/g/personal/z5316653_ad_unsw_edu_au/Eol-3sqFPrhLsBt_ifuuF7kBE-4U99KdZj35aN497nrn4Q?e=0fBZ9X)
 
-  + 2. The same 30 authors with 2000*512 tokens each with a 80, 10, 10% split on the train, test and validation set respectively, https://unsw-my.sharepoint.com/:u:/g/personal/z5408671_ad_unsw_edu_au/ERc49oO5kvVKieNhctoLLAEBqVMFZr4sUQ_MiawyKLInGA?e=20Pvdt 
+  + 2. The same 30 authors with 2000*512 tokens each with a 80, 10, 10% split on the [train, test and validation set respectively](https://unsw-my.sharepoint.com/:u:/g/personal/z5408671_ad_unsw_edu_au/ERc49oO5kvVKieNhctoLLAEBqVMFZr4sUQ_MiawyKLInGA?e=dwDJpl)
 
-  + 3. The same 30 authors with 1000*512 tokens each with a 80, 10, 10% split on the train, test and validation set respectively, https://unsw-my.sharepoint.com/:u:/g/personal/z5408671_ad_unsw_edu_au/ER0ph37G5dNOr7mX3WnOFKMBXhu_FFc7e-6eijhxJPcuhA?e=9fmPOs 
-
- 
+  + 3. The same 30 authors with 1000*512 tokens each with a 80, 10, 10% split on the [train, test and validation set respectively](https://unsw-my.sharepoint.com/:u:/g/personal/z5408671_ad_unsw_edu_au/ER0ph37G5dNOr7mX3WnOFKMBV7zzPL169hXTGkrNCl1euw?e=EMma4v)
 
 Alternatively, you can generate the dataset by following these steps 
 
