@@ -44,7 +44,7 @@ We used three datasets:
 + The 80%, 10%, 10% dataset was split into train, test and validation dataset.
     ### Sampling data
     + The `sampling.py` is used to split each document to the small chunks in size 512.
-    + Then convert the author to the on-hot vector
+    + Then convert the author to the one-hot vector
     + Split the data into train, test and validation dataset
 
 ## BERT Requirements
