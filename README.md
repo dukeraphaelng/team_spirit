@@ -1,6 +1,8 @@
 # Team Spirit
 
-For Team Spirits project we tackle author identification using 2 models, one based on SVM and one based on BERT
+For Team Spirits project we tackle author identification using 2 models, one based on SVM and one based on BERT.
+The dataset used is from the Gutenberg database, https://zenodo.org/record/2422561#.ZDjHg3ZByUk
+From this dataset, we preprocess the data and create the three datasets below.
 
 ## Datasets Used
 We used three datasets:
@@ -8,6 +10,8 @@ We used three datasets:
 2. The same 30 authors with 2000*512 tokens each with a 80, 10, 10% split on the train, test and validation set respectively, https://unsw-my.sharepoint.com/:u:/g/personal/z5408671_ad_unsw_edu_au/ERc49oO5kvVKieNhctoLLAEBqVMFZr4sUQ_MiawyKLInGA?e=20Pvdt
 3. The same 30 authors with 1000*512 tokens each with a 80, 10, 10% split on the train, test and validation set respectively, https://unsw-my.sharepoint.com/:u:/g/personal/z5408671_ad_unsw_edu_au/ER0ph37G5dNOr7mX3WnOFKMBXhu_FFc7e-6eijhxJPcuhA?e=9fmPOs
 
+The 1. preprocessed data can be obtained by running the "preprocessing.py" file in the sampling_data folder.
+The 2. and 3. preprocessed data can be obtained by running the "sampling.py" file in the sampling_data folder and changing line 479 where we define an n=2000 variable into another number such as n=1000.
 
 ## SVM Overview
 + Character n-grams as features
@@ -42,11 +46,6 @@ We used three datasets:
 + As BERT model has a max 512 length limit of tokens, we split each document into small chunks with size 512.
 + Also, the BERT model was built datasets 2. and 3., one is 2000 * 512 tokens per author, anothor is 1000 * 512 per author.
 + The 80%, 10%, 10% dataset was split into train, test and validation dataset.
-    ### Sampling data
-    + The `sampling.py` is used to split each document to the small chunks in size 512.
-    + And sampling 2000 paragraphs per author
-    + Then convert the author to the one-hot vector
-    + Split the data into train, test and validation dataset
 
 ## BERT Requirements
 + python==3.10.8
