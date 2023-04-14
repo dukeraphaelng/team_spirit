@@ -395,8 +395,8 @@ Romanov, A., Kurtukova, A., Shelupanov, A., Fedotova, A. and Goncharov, V., 2020
 
 Sarwar, R., Li, Q., Rakthanmanon, T. and Nutanong, S., 2018. A scalable framework for cross-lingual authorship identification. Information Sciences, 465, pp.323-339. 
 
-[1] Mohsen, A.M., El-Makky, N.M. and Ghanem, N., 2016, December. Author identification using deep learning. In 2016 15th IEEE International Conference on Machine Learning and Applications (ICMLA) (pp. 898-903). IEEE. 
+Mohsen, A.M., El-Makky, N.M. and Ghanem, N., 2016, December. Author identification using deep learning. In 2016 15th IEEE International Conference on Machine Learning and Applications (ICMLA) (pp. 898-903). IEEE. 
 
-[2] Vincent, P., Larochelle, H., Lajoie, I., Bengio, Y., and Manzagol, P., 2010. Stacked Denoising Autoencoders: Learning Useful Representations in a Deep Network with a Local Denoising Criterion. 
+Vincent, P., Larochelle, H., Lajoie, I., Bengio, Y., and Manzagol, P., 2010. Stacked Denoising Autoencoders: Learning Useful Representations in a Deep Network with a Local Denoising Criterion. 
 
-[3] Xing, C., Ma, L., and Yang, X., 2015. Stacked Denoise Autoencoder Based Feature Extraction and Classification for Hyperspectral Images. 
+Xing, C., Ma, L., and Yang, X., 2015. Stacked Denoise Autoencoder Based Feature Extraction and Classification for Hyperspectral Images. 
