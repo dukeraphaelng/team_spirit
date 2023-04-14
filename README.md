@@ -1,6 +1,8 @@
 # Team Spirit
 
-For Team Spirits project we tackle author identification using 2 models, one based on SVM and one based on BERT
+For Team Spirits project we tackle author identification using 2 models, one based on SVM and one based on BERT.
+The dataset used is from the Gutenberg database, https://zenodo.org/record/2422561#.ZDjHg3ZByUk
+From this dataset, we preprocess the data and create the three datasets below.
 
 ## Datasets Used
 We used three datasets:
@@ -8,6 +10,8 @@ We used three datasets:
 2. The same 30 authors with 2000*512 tokens each with a 80, 10, 10% split on the train, test and validation set respectively, https://unsw-my.sharepoint.com/:u:/g/personal/z5408671_ad_unsw_edu_au/ERc49oO5kvVKieNhctoLLAEBqVMFZr4sUQ_MiawyKLInGA?e=20Pvdt
 3. The same 30 authors with 1000*512 tokens each with a 80, 10, 10% split on the train, test and validation set respectively, https://unsw-my.sharepoint.com/:u:/g/personal/z5408671_ad_unsw_edu_au/ER0ph37G5dNOr7mX3WnOFKMBXhu_FFc7e-6eijhxJPcuhA?e=9fmPOs
 
+The 1. preprocessed data can be obtained by running the "preprocessing.py" file in the sampling_data folder.
+The 2. and 3. preprocessed data can be obtained by running the "sampling.py" file in the sampling_data folder and changing line 479 where we define an n=2000 variable into another number such as n=1000.
 
 ## SVM Overview
 + Character n-grams as features
