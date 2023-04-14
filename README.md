@@ -1,4 +1,4 @@
-#### Team Spirit
+# Team Spirit
 
 ## BERT Overview
 + We use the Bert-base uncased model​
