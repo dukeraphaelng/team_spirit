@@ -26,7 +26,7 @@ Team Spirit
 + matplotlib==3.7.1
 
 ## Before running
-1. <b> Please check the tran, test and validation datasets are all in the same directory of the `transformer.py`
+1. <b> Please check the tran, test and validation datasets are all in the same directory of the `transformer.py` </b>
 2. This is the default values setting:
     MAX_LEN = 512
     TRAIN_BATCH_SIZE = 24
