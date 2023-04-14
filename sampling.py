@@ -2,16 +2,10 @@
 # coding: utf-8
 
 # ## Chopping text and sampling
-# We had already chopped the text, the original dataset and the sample dataset both had been uploaded to One drive, you don't have to run this code
-
-# In[ ]:
-
-
-get_ipython().system('pip3 install pandas')
-get_ipython().system('pip3 install torch')
-get_ipython().system('pip3 install numpy')
-get_ipython().system('pip3 install scikit-learn')
-
+# Notice:
+# We had already chopped the text,
+# the original dataset and the sample dataset both had been uploaded to One drive,
+# you don't have to run this code
 
 # In[5]:
 
@@ -100,7 +94,7 @@ def onehot_to_vertor(x):
     return values
 
 
-# In[ ]:
+
 
 
 INPUT_FILE = "preprocessed.csv"
@@ -109,7 +103,7 @@ NUM_BOOKS_AUTHOR_WRITE = 20
 SAMPLE_FILE_NAME = "top_30_authors_1000.csv"
 
 
-# In[ ]:
+
 
 
 filename = INPUT_FILE
@@ -118,41 +112,41 @@ preprocessed_df = pd.read_csv(filename)
 
 # Filter
 
-# In[ ]:
+
 
 
 preprocessed_df['author'].unique().size
 
 
-# In[ ]:
+
 
 
 df = preprocessed_df[preprocessed_df.num_tokens > 0]
 author_count = df['author'].value_counts()
 many_works_author = author_count.sort_values()
-author_count[0:30]
+print(author_count[0:30])
 
 
-# In[ ]:
+
 
 
 many_works_author = many_works_author.unique()[0:30]
 
 
-# In[ ]:
+
 
 
 many_works_author.size
 
 
-# In[ ]:
+
 
 
 #many_works_author = many_works_author.sample(n=AUTHOR_NUM)
 #many_works_author
 
 
-# In[ ]:
+
 
 
 df = df[df.author.isin(author_count[0:30].index.to_numpy())].reset_index()
@@ -161,7 +155,7 @@ len(df)
 
 #                                                             One hot
 
-# In[ ]:
+
 
 
 df['authors_counts'] = df['author'].map(author_count[0:30])
@@ -183,8 +177,6 @@ def save_author_order(x):
     x.to_csv('order.csv', index=False)
 
 
-# In[ ]:
-
 
 one_hot = pd.get_dummies(df['author'])
 save_author_order(one_hot)
@@ -200,7 +192,7 @@ df['label']
 # 
 #                                     Take the first 128 and last 384 tokens
 
-# In[ ]:
+
 
 
 len(df['label'].apply(str).unique())
@@ -516,7 +508,7 @@ train_ds.to_csv(f'svm_2000_train.csv', index=False)
 val_ds.to_csv(f'svm_2000_val.csv', index=False)
 
 
-# In[ ]:
+
 
 
 

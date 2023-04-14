@@ -28,9 +28,9 @@ import matplotlib.pyplot as plt
 # In[2]:
 
 
-train_df = pd.read_csv('final_dataset_train.csv')
-val_df = pd.read_csv('final_dataset_val.csv')
-test_df = pd.read_csv('final_dataset_test.csv')
+train_df = pd.read_csv('svm_2000_train.csv')
+val_df = pd.read_csv('svm_2000_val.csv')
+test_df = pd.read_csv('svm_2000_test.csv')
 # train_df.groupby(['label']).size().plot.bar()
 #set(val_df['author'].tolist()+train_df['author'].tolist())
 
@@ -40,12 +40,14 @@ test_df = pd.read_csv('final_dataset_test.csv')
 # In[3]:
 
 
-#https://colab.research.google.com/github/abhimishra91/transformers-tutorials/blob/master/transformers_multi_label_classification.ipynb#scrollTo=7KnNeQx6SI78
-#https://github.com/marcellusruben/medium-resources/blob/main/Text_Classification_BERT/bert_medium.ipynb
+# Code referenced from https://colab.research.google.com/github/abhimishra91/transformers-tutorials/blob/master/transformers_multi_label_classification.ipynb#scrollTo=7KnNeQx6SI78
+# Code referenced from https://github.com/marcellusruben/medium-resources/blob/main/Text_Classification_BERT/bert_medium.ipynb
+# inputs size
 MAX_LEN = 512
-TRAIN_BATCH_SIZE = 8
-VALID_BATCH_SIZE = 8
-EPOCHS = 2 # 20
+# Bert batch size, wo do gradient descent every batch
+TRAIN_BATCH_SIZE = 24
+VALID_BATCH_SIZE = 24
+EPOCHS = 10 # 20
 LEARNING_RATE = 2e-05
 NUM_CLASSES = len(ast.literal_eval(train_df.loc[0, 'label']))
 device = 'cuda' if cuda.is_available() else 'cpu'
@@ -144,7 +146,9 @@ class BertForClassification(nn.Module):
         self.relu = nn.ReLU()
 
     def forward(self, input_ids, attention_mask):
+        # Step 1: feed data into bert model
         outputs = self.bert(input_ids=input_ids, attention_mask=attention_mask)
+        # Step 2: choose your pooling strategies
         if self.pattern != 'default':
             encoded_layer = outputs.hidden_states
             outputs = []
@@ -160,7 +164,9 @@ class BertForClassification(nn.Module):
             pooled_output = self.dropout(outputs)
         else:
             pooled_output = self.dropout(outputs.pooler_output)
+        # Step 3: feed outputs into linear layer
         linear = self.classifier(pooled_output)
+        # Setep 4: end with Relu function
         logits = self.relu(linear)
         return logits
 
@@ -307,7 +313,7 @@ def make_model(pattern):
 
 # In[11]:
 
-
+# train all pooling strategies
 patterns = ['max', 'mean', 'cat', 'default']
 
 
