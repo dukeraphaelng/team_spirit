@@ -44,13 +44,81 @@ Alternatively, you can generate the dataset by following these steps
 
 - You can run the `EDA.ipynb` notebook to look at the data analysis 
 
- 
 
-3. SVM 
+3. Requirements
 
- 
+**SVM**
 
- 
++ python==3.10.8 
+
++ numpy==1.23.5 
+
++ pandas==2.0.0 
+
++ torch==1.11.0 
+
++ scikit-learn==1.2.2 
+
++ matplotlib==3.7.1 
+
++ keras==2.12.0 
+
++ tensorflow=2.12.0 
+
+**BERT**
+
++ python==3.10.8 
+
++ numpy==1.23.5 
+
++ pandas==2.0.0 
+
++ transformers==4.27.4 
+
++ torch==1.11.0 
+
++ torch-scatter==2.0.2 
+
++ scikit-learn==1.2.2 
+
++ tqdm==4.65.0 
+
++ matplotlib==3.7.1 
+
+4. Before running 
+
++ <b> Please check the tran, test and validation datasets are all in the same directory of the `transformer.ipynb`. </b> 
++ <b> Please check the tran, test and validation datasets are all in the same directory of the `svm_bert_data.ipynb`. </b> 
+
++ This is the default values setting for BERT: 
+
+    ``` 
+
+    MAX_LEN = 512 
+
+    TRAIN_BATCH_SIZE = 24 
+
+    VALID_BATCH_SIZE = 24 
+
+    EPOCHS = 6 # 20 
+
+    LEARNING_RATE = 2e-05 
+
+    ``` 
+
+    * If you want to change the values, please modify them in the `transformer.py`. 
+
++. The `transformer.py` will run 4 times with 4 different techniques:  
+
+        BERT default pooling max pooling, concatenate pooling and mean pooling 
+
+    * If you want to change the techniques, please modify the patterns list (line 311, `transformer.py`). 
+
+5. Run the code 
+
++ Run `svm_bert_data.ipynb` then run `transformer.ipynb`
+  
++ The result of the SVM, and BERT will be saved as `svm_stats.csv`, and `transformer_stats.csv` respectively in the same directory. 
 
 ## Introduction 
 
@@ -273,29 +341,6 @@ The fine-tuning is supervised, therefore labelled data is used to train the netw
 After pre-training and fine-tuning the autoencoders, the final encoding function is obtained. This function can now be used to obtain the richer encoded features which can now be fed into a linear SVM classifier for predictions. 
 For the SVM, a linear SVM was used with 5-fold cross validation from the Scikit-learn implementation with default parameters. 
 
- 
-
- 
-
-#### Requirements 
-
-+ python==3.10.8 
-
-+ numpy==1.23.5 
-
-+ pandas==2.0.0 
-
-+ torch==1.11.0 
-
-+ scikit-learn==1.2.2 
-
-+ matplotlib==3.7.1 
-
-+ keras==2.12.0 
-
-+ tensorflow=2.12.0 
-
-  
 
 ### BERT Model 
 
@@ -314,75 +359,6 @@ For the SVM, a linear SVM was used with 5-fold cross validation from the Scikit-
 + Fine-tuning the weights is applied only on the last 4 transformer layers, the pooling layer and the classifier layer which can significantly save training time. 
 
   
-
-#### Requirements 
-
-+ python==3.10.8 
-
-+ numpy==1.23.5 
-
-+ pandas==2.0.0 
-
-+ transformers==4.27.4 
-
-+ torch==1.11.0 
-
-+ torch-scatter==2.0.2 
-
-+ scikit-learn==1.2.2 
-
-+ tqdm==4.65.0 
-
-+ matplotlib==3.7.1 
-
-  
-
-#### Before running 
-
-1. <b> Please check the tran, test and validation datasets are all in the same directory of the `transformer.py`. </b> 
-
-2. This is the default values setting: 
-
-  
-
-    ``` 
-
-    MAX_LEN = 512 
-
-    TRAIN_BATCH_SIZE = 24 
-
-    VALID_BATCH_SIZE = 24 
-
-    EPOCHS = 6 # 20 
-
-    LEARNING_RATE = 2e-05 
-
-    ``` 
-
-    * If you want to change the values, please modify them in the `transformer.py`. 
-
-3. The `transformer.py` will run 4 times with 4 different techniques:  
-
-        BERT default pooling max pooling, concatenate pooling and mean pooling 
-
-    * If you want to change the techniques, please modify the patterns list (line 311, `transformer.py`). 
-
-  
-
-#### Run the code 
-
-  
-
-``` 
-
-   $ python3 transformer.py 
-
-``` 
-
-  
-
-### Result 
-The result of the SVM, and BERT will be saved as `svm_stats.csv`, and `transformer_stats.csv` respectively in the same directory. 
 
  
 
@@ -407,7 +383,7 @@ On the 512 split dataset, the SVM model achieves its highest weighted average f1
  
  
 
-References 
+## References 
 
 Gerlach, M. and Font-Clos, F., 2020. A standardized Project Gutenberg corpus for statistical analysis of natural language and quantitative linguistics. Entropy, 22(1), p.126.  
 
