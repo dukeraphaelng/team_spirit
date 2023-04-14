@@ -42,6 +42,10 @@ We used three datasets:
 + As BERT model has a max 512 length limit of tokens, we split each document into small chunks with size 512.
 + Also, the BERT model was built datasets 2. and 3., one is 2000 * 512 tokens per author, anothor is 1000 * 512 per author.
 + The 80%, 10%, 10% dataset was split into train, test and validation dataset.
+    ### Sampling data
+    + The `sampling.py` is used to split each document to the small chunks in size 512.
+    + Then convert the author to the on-hot vector
+    + Split the data into train, test and validation dataset
 
 ## BERT Requirements
 + python==3.10.8
