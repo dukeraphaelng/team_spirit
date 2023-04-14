@@ -48,4 +48,4 @@
 ```
 
 ## Result
-The result of the measurement of the 4 different techniques will be save as `transformer_stats.csv` in the same directory as the transformer.py.
+The result of the measurement of the 4 different techniques will be saved as `transformer_stats.csv` in the same directory as the transformer.py.
