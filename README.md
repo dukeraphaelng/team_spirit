@@ -196,8 +196,6 @@ During the preprocessing stage of data, 5 page_ids did not exist in the tokenize
 
 Since SVM is a popular approach to tackle author identification tasks, we follow Mohsen et al. (2016) which utilizes character n-grams as features and uses a Stacked Denoising Autoencoder to further enrich these features with an SVM classifier to make final predictions. 
 
- 
-
 + Character n-grams as features 
 
 + Used Stacked denoising autoencoders to enrich features 
@@ -205,7 +203,6 @@ Since SVM is a popular approach to tackle author identification tasks, we follow
 + Encoded features fed into SVM classifier 
 
   
-
 These sets are first converted into a variable length character n-gram feature set of length 1-5 inclusive, where the count of each character n-gram is counted to form as initial features. 
 
 Feature Selection is used, namely frequency-based feature selection where the top 10000 occurring n-grams are selected and the rest are removed.  
@@ -214,47 +211,37 @@ The sets are then normalized using a min-max normalization and the normalized fe
 
 A DAE injects artificial noise in the input and attempts to output the original input by recognizing noisy data. The training of a DAE is as follows: 
 
-Inject binomial noise into data  so that it gets transformed into , this means a random selection of elements in the dataset are set to 0 
++ Inject binomial noise into data x so that it gets transformed into mean(x), this means a random selection of elements in the dataset are set to 0.
 
- is encoded into the hidden representation using a non-linear transformation function . 
++ mean(x) is encoded into the hidden representation using a non-linear transformation function f_e
 
+y = f_e(W * mean(x)  + b)
+
+where W is the weight matrix of the encoding layer, b is the bias and f_e is the sigmoid function, 
  
++ The hidden representation y is decoded into the reconstructed output z 
 
-where  is the weight matrix of the encoding layer, is the bias and  is the sigmoid function, 
+z = f_d(W'y + b')
 
-. 
+where W' is the weight matrix of the decoding layer. Tied weights are used, therefore, W' = W^T,  the sigmoid function is used again.
 
-The hidden representation is decoded into the reconstructed output . 
++ The output z must reconstruct the original input x without noise, the reconstruction error is the cost function where binary cross-entropy was used. Further, the adam optimizer was used. 
 
- 
-
-where  is the weight matrix of the decoding layer. Tied weights are used, therefore, ,  the sigmoid function is used again. 
-
- 
-
-The output must reconstruct the original input without noise, the reconstruction error is the cost function where binary cross-entropy was used. Further, the adam optimizer was used. 
-
- 
- 
 
 The training of a SDAE consists of 2 procedures, unsupervised pre-training and then supervised fine-tuning. In pre-training, the steps are as follows: 
 
-For the  DAE, the above training steps are followed to obtain the encoder function .  
+For the k DAE, the above training steps are followed to obtain the encoder function f_e^k.  
 
-This encoder function is applied on the clean input  which is fed into the next DAE as input where  
+This encoder function is applied on the clean input x^k which is fed into the next DAE as input where
 
- 
- 
+(x^{k+1}) = f_e(x^k)
 
-and is fed as input into the next DAE. 
+and (x^{k+1}) is fed as input into the next DAE. 
 
-The above 2 steps are repeated for each DAE, for  in the stack where  is the original input and the final  is the encoded features. 
-
- 
+The above 2 steps are repeated for each DAE, for k in [0, L] in the stack where x^1 is the original input and the final x^L is the encoded features. 
 
 Referenced from https://www.jmlr.org/papers/volume11/vincent10a/vincent10a.pdf 
 
- 
 
 Next, the DAE’s weights are all fine-tuned. 
 
@@ -265,82 +252,8 @@ The encoders from each DAE are stacked and a logistic regression layer is added 
 The encoders have already been pre-trained following the above steps and the learnt weights are used to initialize this network. 
 
 The fine-tuning is supervised, therefore labelled data is used to train the network and finetune the weights and parameters using categorical cross entropy as the cost function to minimize using backpropagation. Further, the logistic layer uses the softmax activation due to the classification nature of this problem and the adam optimizer is used. 
-
- 
 
 Referenced from https://www.hindawi.com/journals/js/2016/3632943/ 
-
- 
-
-After pre-training and fine-tuning the autoencoders, the final encoding function is obtained. This function can now be used to obtain the richer encoded features which can now be fed into a linear SVM classifier for predictions. 
-For the SVM, a linear SVM was used with 5-fold cross validation from the Scikit-learn implementation with default parameters. 
-
- 
-
-The dataset texts are first converted into a variable length character n-gram feature set of length 1-5 inclusive, where the count of each character n-gram is counted to form as initial features. 
-
-Feature Selection is used, namely frequency-based feature selection where the top 10000 occurring n-grams are selected and the rest are removed.  
-
-The sets are then normalized using a min-max normalization and the normalized features are then passed into a stacked denoising autoencoder (SDAE) for further enrichment of features. 
-
-A DAE injects artificial noise in the input and attempts to output the original input by recognizing noisy data. The training of a DAE is as follows: 
-
-Inject binomial noise into data so that it gets transformed into , this means a random selection of elements in the dataset are set to 0 
-
-  is encoded into the hidden representation using a non-linear transformation function . 
-
- 
-
-where is the weight matrix of the encoding layer,  is the bias and  is the sigmoid function, 
-
-. 
-
-The hidden representation is decoded into the reconstructed output . 
-
- 
-
-where  is the weight matrix of the decoding layer. Tied weights are used, therefore, ,  the sigmoid function is used again. 
-
-The output must reconstruct the original input without noise, the reconstruction error is the cost function where binary cross-entropy was used. Further, the adam optimizer was used. 
-
- 
-
-The training of a SDAE consists of 2 procedures, unsupervised pre-training and then supervised fine-tuning. In pre-training, the steps are as follows: 
-
-For the  DAE, the above training steps are followed to obtain the encoder function .  
-
-This encoder function is applied on the clean input  which is fed into the next DAE as input where  
-
- 
- 
-
-and  is fed as input into the next DAE. 
-
-The above 2 steps are repeated for each DAE, for  in the stack where  is the original input and the final  is the encoded features. 
-
- 
-
-[2] 
-
-Next, the DAE’s weights are all fine-tuned. 
-
-The fine-tuning steps are as follows: 
-
-The encoders from each DAE are stacked and a logistic regression layer is added on top as shown in the picture below. 
-
-The encoders have already been pre-trained following the above steps and the learnt weights are used to initialize this network. 
-
-The fine-tuning is supervised, therefore labelled data is used to train the network and finetune the weights and parameters using categorical cross entropy as the cost function to minimize using backpropagation. Further, the logistic layer uses the softmax activation due to the classification nature of this problem and the adam optimizer is used. 
-
- 
-
-[3] 
-
- 
-
-After pre-training and fine-tuning the autoencoders, the final encoding function is obtained. This function can now be used to obtain the richer encoded features which can now be fed into a linear SVM classifier for predictions. 
-For the SVM, a linear SVM was used with 5-fold cross validation from the Scikit-learn implementation with default parameters. 
-
 
 ### BERT Model 
 
@@ -364,15 +277,15 @@ For the SVM, a linear SVM was used with 5-fold cross validation from the Scikit-
 
 SVM: 
 
- 
 
-Table 1: Results of SVM on whole document dataset 
 
- 
 
- 
+[Table 1: Results of SVM on whole document dataset](./resources/table1.png)
 
-Table 2: Results of SVM on 2000 x 512 token dataset 
+
+[Table 2: Results of SVM on 2000 x 512 token dataset](./resources/table2.png)
+
+[Table 3: Result](./resources/res.png)
 
 We find that in Table 1, the SVM model achieves the highest weighted average f1-score of 96.4 on the whole document dataset when using only 1 denoising autoencoder, opposed to the paper we were following which used 3. 
 
@@ -395,8 +308,8 @@ Romanov, A., Kurtukova, A., Shelupanov, A., Fedotova, A. and Goncharov, V., 2020
 
 Sarwar, R., Li, Q., Rakthanmanon, T. and Nutanong, S., 2018. A scalable framework for cross-lingual authorship identification. Information Sciences, 465, pp.323-339. 
 
-[1] Mohsen, A.M., El-Makky, N.M. and Ghanem, N., 2016, December. Author identification using deep learning. In 2016 15th IEEE International Conference on Machine Learning and Applications (ICMLA) (pp. 898-903). IEEE. 
+Mohsen, A.M., El-Makky, N.M. and Ghanem, N., 2016, December. Author identification using deep learning. In 2016 15th IEEE International Conference on Machine Learning and Applications (ICMLA) (pp. 898-903). IEEE. 
 
-[2] Vincent, P., Larochelle, H., Lajoie, I., Bengio, Y., and Manzagol, P., 2010. Stacked Denoising Autoencoders: Learning Useful Representations in a Deep Network with a Local Denoising Criterion. 
+Vincent, P., Larochelle, H., Lajoie, I., Bengio, Y., and Manzagol, P., 2010. Stacked Denoising Autoencoders: Learning Useful Representations in a Deep Network with a Local Denoising Criterion. 
 
-[3] Xing, C., Ma, L., and Yang, X., 2015. Stacked Denoise Autoencoder Based Feature Extraction and Classification for Hyperspectral Images. 
+Xing, C., Ma, L., and Yang, X., 2015. Stacked Denoise Autoencoder Based Feature Extraction and Classification for Hyperspectral Images. 
